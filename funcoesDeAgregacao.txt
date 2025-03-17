@@ -1,0 +1,37 @@
+17/10/2024
+
+
+/* 1- Selecione a quantidade total de medicamentos em estoque */
+SELECT SUM(m.estoque) AS total_estoque
+FROM MEDICAMENTOS m
+
+/* 2 - Selecione a média de idade dos tutores. 
+ * Obs : Não quero ano fixo. Ex: 2024 e sim que pegue o ano atual do servidor.
+ * */
+SELECT p.*, t.*
+FROM PACIENTE p
+INNER JOIN TUTOR t ON t.ID_TUTOR = p.ID_TUTOR
+
+/* 3 - Selecione o menor valor unitário entre os medicamentos. */
+SELECT MIN(m.preco) AS menor_valor
+FROM MEDICAMENTOS m
+
+/* 4 - Selecione o maior peso entre os pacientes. */
+SELECT MAX(p.peso) AS maior_peso
+FROM PACIENTE p 
+
+/* 5 - Selecione o número total de tutores na base de dados. */
+SELECT COUNT(ID_TUTOR) AS TOTAL_DE_TUTORES
+FROM TUTOR t 
+
+/* 6 - Selecione o valor total em estoque de medicamentos para cada unidade. */
+SELECT UNIDADE, SUM(m.preco * m.estoque) AS valor_total_estoque
+FROM MEDICAMENTOS m 
+GROUP BY UNIDADE
+
+/* 7 - Selecione o ID da receita e a soma total dos valores individuais dos itens da receita
+ * para cada receita com um valor total superior a 100. */
+SELECT DISTINCT i.ID_RECEITA 
+	, SUM(i.TOTAL_ITEM)
+FROM ITENSRECEITA i 
+HAVING TOTAL_ITEM > 100

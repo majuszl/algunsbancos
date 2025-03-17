@@ -1,0 +1,74 @@
+10/10/2024
+
+
+ATIVIDADES - UPDATE & DELETE 
+
+/*1 - Atualize o peso do paciente com ID 1 para 8.5 kg.*/
+UPDATE PACIENTE p SET  p.PESO = 8.5
+WHERE p.ID_PACIENTE = 1
+
+/*2 - Atualize o estoque do medicamento com ID 3 para 50 unidades.*/
+UPDATE MEDICAMENTOS m SET m.ESTOQUE = 50
+WHERE m.ID_MEDICAMENTO = 3
+
+SELECT * FROM RECEITA r
+
+/*3 - Atualize a data de nascimento do tutor com ID 2 para '15/05/2001'.*/
+UPDATE TUTOR t SET t.DATA_NASCIMENTO = '2001-05-15'
+WHERE t.ID_TUTOR = 2
+
+/*4 - Atualize o motivo da consulta com ID 5 para 'Dor de ouvido severa'.*/
+UPDATE AGENDAMENTO a SET a.MOTIVO = 'Dor de barriga severa'
+WHERE a.ID_AGENDAMENTO = 5
+
+/*5 - Atualize a descrição do medicamento com ID 6 para 'Anti-inflamatório para articulações'.*/
+UPDATE medicamentos m SET m.DESCRICAO = 'Anti-inflamatório para articulações'
+WHERE m.ID_MEDICAMENTO = 6
+
+/*6 - Atualize o nome do tutor com ID 3 para 'Maria Oliveira'.*/
+UPDATE TUTOR t SET t.NOME = 'Maria Oliveira'
+WHERE t.ID_TUTOR = 3
+
+/*7 - Atualize a posologia do medicamento com ID 2 para 'Aplicar no olho afetado a cada 4 horas'.*/
+UPDATE medicamentos m SET m.DESCRICAO = 'Aplicar no olho afetado a cada 4 horas'
+WHERE m.ID_MEDICAMENTO = 2
+
+/*8 - Atualize o endereço do tutor com ID 4 para 'Rua dos Girassóis, 123'.*/
+UPDATE TUTOR t SET t.ENDERECO = 'Rua dos Girassóis, 123'
+WHERE t.ID_TUTOR = 4
+
+/*9 - Delete a consulta com ID 7.*/
+DELETE FROM AGENDAMENTO a 
+WHERE a.ID_AGENDAMENTO = 7
+
+/*10 - Delete o medicamento com ID 8.*/
+DELETE FROM MEDICAMENTOS m
+WHERE m.ID_MEDICAMENTO = 7
+
+/*11 - Delete os animais do tutor que tem o ID 5.*/
+DELETE FROM RECEITA r
+WHERE ID_AGENDAMENTO IN (SELECT ID_AGENDAMENTO FROM AGENDAMENTO WHERE ID_PACIENTE = 5)
+
+DELETE FROM RECEITA r
+WHERE ID_AGENDAMENTO IN (SELECT ID_AGENDAMENTO FROM AGENDAMENTO WHERE ID_PACIENTE = 8)
+
+DELETE FROM AGENDAMENTO a
+WHERE ID_PACIENTE IN (SELECT ID_PACIENTE FROM PACIENTE WHERE ID_TUTOR = 5 )
+
+DELETE FROM PACIENTE p
+WHERE p.ID_TUTOR = 5
+
+/*12 - Delete todas a receitas e seu itens que não estão relacionadas a nenhuma consulta.*/
+DELETE FROM ITENSRECEITA i
+WHERE ID_RECEITA IN (SELECT ID_AGENDAMENTO FROM AGENDAMENTO WHERE ID_AGENDAMENTO = 0)
+
+DELETE FROM RECEITA i
+WHERE i.ID_AGENDAMENTO NOT IN (SELECT i.ID_AGENDAMENTO FROM AGENDAMENTO WHERE ID_AGENDAMENTO = ID_AGENDAMENTO)
+
+/*13 - Delete todos os tutor que nasceram antes de 1987.*/
+DELETE FROM TUTOR t
+WHERE t.DATA_NASCIMENTO < '1987-01-01'
+
+/*14 - Delete todos os itens da receita, das receitas que tem o intervalo de ID 7 ao 9.*/
+DELETE FROM ITENSRECEITA i
+WHERE i.ID_ITEM_RECEITA BETWEEN 7 AND 9
